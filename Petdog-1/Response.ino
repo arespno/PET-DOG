@@ -317,8 +317,7 @@ uint32_t calculate(const char **num, const char **sign) {
         }
         _dbgprint("=");
 #if defined(OLED)
-        display.println(val1);
-        display.display();
+        OLEDprintln(val1);
 #else
         Serial.println(val1);
 #endif

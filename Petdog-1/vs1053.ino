@@ -1,8 +1,7 @@
 // record voice data to sd card with recordName, or to spi ram when recordName is nullptr
 boolean record(char *recordName, uint16_t sampleRate) {
 #if defined(OLED)
-    display.println("Start record...");
-    display.display();
+    OLEDprintln("Start record...");
 #else
     Serial.println("Start record...");
 #endif
@@ -12,8 +11,7 @@ boolean record(char *recordName, uint16_t sampleRate) {
         file = SD.open(recordName, FILE_WRITE);
         if (!file) {
 #if defined(OLED)
-            display.println("Create file error.");
-            display.display();
+            OLEDprintln("Create file error.");
 #else
             Serial.println("Create file error.");
 #endif
@@ -94,8 +92,7 @@ boolean record(char *recordName, uint16_t sampleRate) {
 
     }
 #if defined(OLED)
-    display.println("Record finished.");
-    display.display();
+    OLEDprintln("Record finished.");
 #else
     Serial.println("Record finished.");
 #endif
@@ -110,9 +107,8 @@ void play(char *playName) {
         File file = SD.open(playName);
         if (!file) {
 #if defined(OLED)
-            display.print("Can't open ");
-            display.println(playName);
-            display.display();
+            OLEDprint("Can't open ");
+            OLEDprintln(playName);
 #else
             Serial.print("Can't open ");
             Serial.println(playName);

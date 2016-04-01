@@ -9,8 +9,8 @@
 
 #if defined(__DEBUG)
 #if defined(OLED)
-#define _dbgprint(...)  { if (display.getCursorY() >= display.height()) { display.clearDisplay(); display.setCursor(0, 0); } display.setTextSize(1); display.setTextColor(WHITE, BLACK); display.print(__VA_ARGS__); display.display(); }
-#define _dbgprintln(...)  { if (display.getCursorY() >= display.height()) { display.clearDisplay(); display.setCursor(0, 0); } display.setTextSize(1); display.setTextColor(WHITE, BLACK); display.println(__VA_ARGS__); display.display(); }
+#define _dbgprint(...)  { if (display.getCursorY() >= display.height() - 8) { display.clearDisplay(); display.setCursor(0, 0); } display.setTextSize(1); display.setTextColor(WHITE, BLACK); display.print(__VA_ARGS__); display.display(); }
+#define _dbgprintln(...)  { if (display.getCursorY() >= display.height() - 8) { display.clearDisplay(); display.setCursor(0, 0); } display.setTextSize(1); display.setTextColor(WHITE, BLACK); display.println(__VA_ARGS__); display.display(); }
 #else
 #define _dbgprint(...)  Serial.print(__VA_ARGS__)
 #define _dbgprintln(...)  Serial.println(__VA_ARGS__)
@@ -18,6 +18,11 @@
 #else
 #define _dbgprint(...)
 #define _dbgprintln(...)
+#endif
+
+#if defined(OLED)
+#define OLEDprint(...)  { if (display.getCursorY() >= display.height() - 8) { display.clearDisplay(); display.setCursor(0, 0); } display.print(__VA_ARGS__); display.display(); }
+#define OLEDprintln(...)  { if (display.getCursorY() >= display.height() - 8) { display.clearDisplay(); display.setCursor(0, 0); } display.println(__VA_ARGS__); display.display(); }
 #endif
 
 // display ssid, ip
@@ -179,7 +184,7 @@ const char *entities[] PROGMEM = {
 #define CULTURE_EN_US  0
 #define CULTURE_ZH_CN  1
 
-uint8_t culture = CULTURE_EN_US;
+uint8_t culture = CULTURE_ZH_CN;
 
 uint8_t lang = culture == CULTURE_EN_US ? SPEECHAPI_en_US : SPEECHAPI_zh_CN;
 

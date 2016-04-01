@@ -75,8 +75,7 @@ void startFaceDetect(uint32_t len) {
                     }
                     result = buf;
 #if defined(OLED)
-                    display.println(buf);
-                    display.display();
+                    OLEDprintln(buf);
 #else
                     Serial.println(buf);
 #endif
@@ -96,8 +95,7 @@ void startFaceDetect(uint32_t len) {
         }
         if (!message.equals("")) {
 #if defined(OLED)
-            display.println(message.c_str());
-            display.display();
+            OLEDprintln(message.c_str());
 #else
             Serial.println(message.c_str());
 #endif

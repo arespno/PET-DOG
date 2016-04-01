@@ -18,9 +18,8 @@ void displaySmartLink(const char *str) {
     display.setCursor(0, 0);
     display.setTextSize(1);
     display.setTextColor(WHITE, BLACK);
-    display.println();
-    display.println(str);
-    display.display();
+    OLEDprintln();
+    OLEDprintln(str);
 #else
     Serial.println(str);
 #endif
@@ -35,9 +34,8 @@ void startSmartLink() {
     char ssid[14] = "MKR1000_";
     sprintf(&ssid[8], "%02X:%02X", mac[1], mac[0]);
 #if defined(OLED)
-    display.print("Start HTTP Provision Mode, SSID: ");
-    display.println(ssid);
-    display.display();
+    OLEDprint("Start HTTP Provision Mode, SSID: ");
+    OLEDprintln(ssid);
 #else
     Serial.print("Start HTTP Provision Mode, SSID: ");
     Serial.println(ssid);

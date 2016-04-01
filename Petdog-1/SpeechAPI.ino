@@ -1,6 +1,7 @@
 // the Speech API subscriptions key
 // https://www.microsoft.com/cognitive-services/en-us/speech-api
-const char speechAPIKeys[] = "your_subscriptions_key";
+//const char speechAPIKeys[] = "your_subscriptions_key";
+const char speechAPIKeys[] = "31d62c70bb254bd896e1f3a1a55d144d";
 
 // WOW!!! LUIS programmatic APIS are out now! but 3-31 to closed
 // the LUIS subscriptions key
@@ -38,9 +39,8 @@ void startSpeech(char *recordName, uint16_t sampleRate) {
         file = SD.open(recordName);
         if (!file) {
 #if defined(OLED)
-            display.print("Can't open ");
-            display.println(recordName);
-            display.display();
+            OLEDprint("Can't open ");
+            OLEDprintln(recordName);
 #else
             Serial.print("Can't open ");
             Serial.println(recordName);
@@ -224,10 +224,9 @@ void textToSpeech(const char *str, uint16_t sampleRate) {
             return;
         }
 #if defined(OLED)
-        display.print("Http/");
-        display.println(code);
-        display.println(str);
-        display.display();
+        OLEDprint("Http/");
+        OLEDprintln(code);
+        OLEDprintln(str);
 #else
         Serial.print("Http/");
         Serial.println(code);

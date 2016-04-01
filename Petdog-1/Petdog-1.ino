@@ -79,12 +79,6 @@ static const uint8_t SCK2  = PIN_SPI2_SCK;
     // Since the buffer is intialized with an Adafruit splashscreen
     // internally, this will display the splashscreen.
     display.display();
-    delay(1000);
-    display.dim(true);
-    display.clearDisplay();
-    display.setCursor(0, 0);
-    display.setTextColor(WHITE);
-    display.display();
 #endif
 
     // initialize camera, spi ram, vs1053, sd card
@@ -92,10 +86,10 @@ static const uint8_t SCK2  = PIN_SPI2_SCK;
     SPIRAM.begin(SPIRAM_CS);
     VSSound.begin(XCS, XDCS, XRESET, DREQ);
     VSSound.setVolume(0x3030);
+
     if (!SD.begin(SD_CS)) {
 #if defined(OLED)
-        display.println("SD card initialize failed!");
-        display.display();
+        OLEDprintln("SD card initialize failed!");
 #else
         Serial.println("SD card initialize failed!");
 #endif
@@ -105,6 +99,14 @@ static const uint8_t SCK2  = PIN_SPI2_SCK;
     initFaceAPI();
     initSpeakerRecognitionAPI();
     initSpeechAPI();
+
+#if defined(OLED)
+    display.dim(true);
+    display.clearDisplay();
+    display.setCursor(0, 0);
+    display.setTextColor(WHITE);
+    display.display();
+#endif
 }
 
 void loop() {
@@ -114,8 +116,7 @@ void loop() {
     if (!wifiOK) {
         if (!WiFi.provisioned() || WiFi.status() != WL_CONNECTED || !WiFi.localIP()) {
 #if defined(OLED)
-            display.print('.');
-            display.display();
+            OLEDprint('.');
 #else
             Serial.print('.');
 #endif
@@ -146,11 +147,10 @@ void loop() {
 void printWiFiStatus() {
     IPAddress ip = WiFi.localIP();
 #if defined(OLED)
-    display.print("ssid: ");
-    display.println(WiFi.SSID());
-    display.print("ip: ");
-    display.println(ip);
-    display.display();
+    OLEDprint("ssid: ");
+    OLEDprintln(WiFi.SSID());
+    OLEDprint("ip: ");
+    OLEDprintln(ip);
 #else
     Serial.print("ssid: ");
     Serial.println(WiFi.SSID());
