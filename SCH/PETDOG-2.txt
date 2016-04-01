@@ -1,0 +1,16 @@
+Partlist exported from PETDOG-2.sch at 2016/4/1 10:48
+
+Part Value         Device      Package     Description                
+C1   0.1uf         C-EUC0603   C0603       CAPACITOR, European symbol 
+IC1  23LC1024-I/SN VS23S010C-S VS23S010C-S                            
+JP1  CAMERA        PIN-1X8     PIN-1X8                                
+JP2  SHARPIR       PIN-1X3     PIN-1X3                                
+JP3  SERVO         PIN-1X4     PIN-1X4                                
+JP4  SD            PIN-1X6     PIN-1X6                                
+JP5  DISPLAY       PIN-1X7     PIN-1X7                                
+JP6  VS1053        PIN-1X9     PIN-1X9                                
+JP7  POWER         PIN-1X2     PIN-1X2                                
+JP8  PAM8403       PIN-1X2     PIN-1X2                                
+R1   10K           R-EU_R0603  R0603       RESISTOR, European symbol  
+R2   10K           R-EU_R0603  R0603       RESISTOR, European symbol  
+U1   MKR1000       MKR1000-2   MKR1000-2                              
