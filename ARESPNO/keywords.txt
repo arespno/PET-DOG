@@ -1,0 +1,39 @@
+#########################################
+# Syntax Coloring Map ARESPNO_devicetts
+#########################################
+
+#######################################
+# Library (KEYWORD3)
+#######################################
+
+Code	KEYWORD3
+FaceAPI	KEYWORD3
+EmotionAPI	KEYWORD3
+SpeechAPI	KEYWORD3
+SpiRam	KEYWORD3
+VS1053	KEYWORD3
+SpeakerRecognitionAPI	KEYWORD3
+HttpRequest	KEYWORD3
+
+#########################################
+# Datatypes (KEYWORD1)
+#########################################
+
+CODE	KEYWORD1
+FAMSPO	KEYWORD1
+EAMSPO	KEYWORD1
+SAMSPO	KEYWORD1
+SPIRAM	KEYWORD1
+VSSound	KEYWORD1
+SRAMSPO	KEYWORD1
+
+#########################################
+# Methods and Functions (KEYWORD2)
+#########################################
+
+
+#########################################
+# Constants (LITERAL1)
+#########################################
+
+alkdwef	LITERAL1
