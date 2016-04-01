@@ -42,8 +42,7 @@ boolean isFarAway(int distance);
  * SD config
  */
 // SD card cs pin
-//#define SD_CS  4
-#define SD_CS  3
+#define SD_CS  4
 
 /*
  * SPIRAM config
