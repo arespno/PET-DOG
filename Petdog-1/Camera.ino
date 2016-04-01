@@ -53,11 +53,11 @@ void start_capture() {
 void doCapture() {
     start_capture();
     uint8_t delays = 0;
-    while (!myCAM.get_bit(ARDUCHIP_TRIG, CAP_DONE_MASK) && delays < 20) {
+    while (!myCAM.get_bit(ARDUCHIP_TRIG, CAP_DONE_MASK) && delays < 30) {
         delay(10);
         delays ++;
     }
-    if (delays >= 20) {
+    if (delays >= 30) {
         _dbgprintln("Capture error...");
         return;
     }
