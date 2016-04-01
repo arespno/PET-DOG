@@ -1,7 +1,6 @@
 // the Speech API subscriptions key
 // https://www.microsoft.com/cognitive-services/en-us/speech-api
-//const char speechAPIKeys[] = "your_subscriptions_key";
-const char speechAPIKeys[] = "31d62c70bb254bd896e1f3a1a55d144d";
+const char speechAPIKeys[] = "your_subscriptions_key";
 
 // WOW!!! LUIS programmatic APIS are out now! but 3-31 to closed
 // the LUIS subscriptions key
