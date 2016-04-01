@@ -33,7 +33,7 @@ boolean isCloseTo(int distance) {
     static uint8_t counts = 0;
     if (getDistance() <= distance) {
         counts ++;
-        if (counts >= 20) {
+        if (counts >= 50) {
             counts = 0;
             return true;
         }
@@ -47,7 +47,7 @@ boolean isFarAway(int distance) {
     static uint8_t counts = 0;
     if (getDistance() > distance) {
         counts ++;
-        if (counts >= 20) {
+        if (counts >= 50) {
             counts = 0;
             return true;
         }

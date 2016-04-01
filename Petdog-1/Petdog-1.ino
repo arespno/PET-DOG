@@ -38,10 +38,8 @@ void setup() {
     Serial.begin(115200);
     // Serial1 is rx, tx
     Serial1.begin(115200);
-    // WiFi 101 can save SSID and PASSWORD if has connected.
-//    WiFi.begin();
-//    stream.begin(SERVER_PORT);
-    stream.begin(ssid, wpa_passphrase, SERVER_PORT);
+    // Firmata stream begin to connect WiFi
+    stream.begin(SERVER_PORT);
     unsigned long t = millis() + 500;
     while (!Serial && t > millis()) {
     }
@@ -111,7 +109,7 @@ static const uint8_t SCK2  = PIN_SPI2_SCK;
 
 void loop() {
     static boolean wifiOK = false;
-    static unsigned long wifiTime = millis() + 10000;
+    static unsigned long wifiTime = millis() + 5000;
 
     if (!wifiOK) {
         if (!WiFi.provisioned() || WiFi.status() != WL_CONNECTED || !WiFi.localIP()) {
