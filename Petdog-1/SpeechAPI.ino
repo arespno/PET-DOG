@@ -209,6 +209,7 @@ void startSpeech(char *recordName, uint16_t sampleRate) {
 }
 
 void textToSpeech(const char *str, uint16_t sampleRate) {
+    VSSound.softReset();
     // callback funtion when receive text to speech voice data
     SAMSPO.onDataSynthesize([](uint8_t *data, size_t len) {
         if (!data || !len) {
