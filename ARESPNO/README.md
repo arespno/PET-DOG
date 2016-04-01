@@ -1,6 +1,6 @@
-  ARESPNO_devicetts v1.0
+  ARESPNO_DEVICES v1.0
 =========================
-  Copyright (c) 2015, ARESPNO
+  Copyright (c) 2016, ARESPNO
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -23,4 +23,4 @@
  Welcome to ARESPNO.
 =========================
 
-ARESPNO_devicetts is the attempt to chat with human.
+ARESPNO_DEVICES is the attempt to chat with human.
