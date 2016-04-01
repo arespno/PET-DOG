@@ -38,7 +38,7 @@ void setup() {
     Serial.begin(115200);
     // Serial1 is rx, tx
     Serial1.begin(115200);
-    // Firmata stream begin to connect WiFi
+    // Firmata stream begin connect to WiFi
     stream.begin(SERVER_PORT);
     unsigned long t = millis() + 500;
     while (!Serial && t > millis()) {
