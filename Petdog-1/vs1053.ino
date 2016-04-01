@@ -100,7 +100,7 @@ boolean record(char *recordName, uint16_t sampleRate) {
     Serial.println("Record finished.");
 #endif
 
-    play(recordName);
+//    play(recordName);
     return true;
 }
 
