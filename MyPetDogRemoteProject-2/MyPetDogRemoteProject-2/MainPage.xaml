@@ -1,0 +1,40 @@
+﻿<Page
+    x:Class="MyPetDogRemoteProject_2.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyPetDogRemoteProject_2"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBox Name="RemoteIP" Grid.Row="0" IsEnabled="True" HorizontalAlignment="Stretch"></TextBox>
+        <Button Name="ConnectButton" Click="ConnectButton_Click" Grid.Row="1" IsEnabled="True" HorizontalAlignment="Stretch">Connect</Button>
+        <Button Name="LeftHandButton" Click="LeftHand_Click" Grid.Row="2" IsEnabled="False" HorizontalAlignment="Left">LeftHand</Button>
+        <Button Name="ForwardButton" Click="Forward_Click" Grid.Row="2" IsEnabled="False" HorizontalAlignment="Center">Forward</Button>
+        <Button Name="RightHandButton" Click="RightHand_Click" Grid.Row="2" IsEnabled="False" HorizontalAlignment="Right">RightHand</Button>
+        <Button Name="LeftButton" Click="Left_Click" Grid.Row="3" IsEnabled="False" HorizontalAlignment="Left">Left</Button>
+        <Button Name="StopButton" Click="Stop_Click" Grid.Row="3" IsEnabled="False" HorizontalAlignment="Center">Stop</Button>
+        <Button Name="RightButton" Click="Right_Click" Grid.Row="3" IsEnabled="False" HorizontalAlignment="Right">Right</Button>
+        <Button Name="SitDownButton" Click="SitDown_Click" Grid.Row="4" IsEnabled="False" HorizontalAlignment="Left">SitDown</Button>
+        <Button Name="BackButton" Click="Back_Click" Grid.Row="4" IsEnabled="False" HorizontalAlignment="Center">Back</Button>
+        <Button Name="GoProneButton" Click="GoProne_Click" Grid.Row="4" IsEnabled="False" HorizontalAlignment="Right">GoProne</Button>
+        <SplitView Name="BlankView" Grid.Row="5" HorizontalAlignment="Stretch"></SplitView>
+        <Button Name="HeadUpButton" Click="HeadUpButton_Click" Grid.Row="6" IsEnabled="False" HorizontalAlignment="Center">Up</Button>
+        <Button Name="HeadLeftButton" Click="HeadLeftButton_Click" Grid.Row="7" IsEnabled="False" HorizontalAlignment="Left">Left</Button>
+        <Button Name="HeadButton" Click="HeadButton_Click" Grid.Row="7" IsEnabled="False" HorizontalAlignment="Center">Head</Button>
+        <Button Name="HeadRightButton" Click="HeadRightButton_Click" Grid.Row="7" IsEnabled="False" HorizontalAlignment="Right">Right</Button>
+        <Button Name="HeadDownButton" Click="HeadDownButton_Click" Grid.Row="8" IsEnabled="False" HorizontalAlignment="Center">Down</Button>
+    </Grid>
+</Page>
