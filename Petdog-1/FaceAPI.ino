@@ -71,7 +71,7 @@ void startFaceDetect(uint32_t len) {
                             (const char *) root[i]["faceAttributes"]["gender"]);
                     if (((JsonObject&) root[i]["faceAttributes"]).containsKey("smile")) {
                         sprintf(&buf[strlen(buf)], ", smile: %f", 
-                                (float) root[i]["faceAttributes"]["smile"], 1, 3, &buf[strlen(buf)]);
+                                (float) root[i]["faceAttributes"]["smile"]);
                     }
                     result = buf;
 #if defined(OLED)
