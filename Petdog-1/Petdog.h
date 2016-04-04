@@ -136,6 +136,8 @@ void headTurnRight();
 void headTurnForward();
 void headLiftUp();
 void headDown();
+void headShake();
+void headNod();
 
 /*
  * vs1053
@@ -181,6 +183,7 @@ const char *entities[] PROGMEM = {
     "",
 };
 
+// language select
 #define CULTURE_EN_US  0
 #define CULTURE_ZH_CN  1
 
