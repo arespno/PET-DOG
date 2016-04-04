@@ -150,6 +150,8 @@ Motion motions[MAXMN] = {
 
 uint8_t bufferAngle[MAXSN] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
+const char headShakeCommand[] PROGMEM = "#head-shake%";
+const char headNodCommand[] PROGMEM = "#head-nod%";
 const char headLeftCommand[] PROGMEM = "#head-left%";
 const char headRightCommand[] PROGMEM = "#head-right%";
 const char headForwardCommand[] PROGMEM = "#head-forward%";
@@ -317,6 +319,28 @@ void headDown() {
     }
 }
 
+void headShake() {
+    headTurnRight();
+    while (!servoLoop());
+    headTurnLeft();
+    while (!servoLoop());
+    headTurnRight();
+    while (!servoLoop());
+    headTurnForward();
+    while (!servoLoop());
+}
+
+void headNod() {
+    headDown();
+    while (!servoLoop());
+    headLiftUp();
+    while (!servoLoop());
+    headDown();
+    while (!servoLoop());
+    headTurnForward();
+    while (!servoLoop());
+}
+
 void petdogAction(uint8_t action) {
     if (MAXMN > action) {
         // test frame to first
@@ -341,7 +365,11 @@ void petdog(const char *str) {
     if (!str) {
         return;
     }
-    if (!strcmp_P(str, headLeftCommand)) {
+    if (!strcmp_P(str, headShakeCommand)) {
+        headShake();
+    } else if (!strcmp_P(str, headNodCommand)) {
+        headNod();
+    } else if (!strcmp_P(str, headLeftCommand)) {
         headTurnLeft();
     } else if (!strcmp_P(str, headRightCommand)) {
         headTurnRight();
