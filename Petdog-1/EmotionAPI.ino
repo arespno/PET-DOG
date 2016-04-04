@@ -148,6 +148,7 @@ void startEmotionRecognize(uint32_t len) {
 #endif
         }
         if (result.length()) {
+            Firmata.sendString(result.c_str());
             textToSpeech(result.c_str(), 16000);
         }
     }
