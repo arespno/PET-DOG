@@ -203,6 +203,7 @@ void startSpeech(char *recordName, uint16_t sampleRate) {
         }
     }
     if (result.length()) {
+        Firmata.sendString(result.c_str());
         textToSpeech(result.c_str(), 16000);
     }
 }
