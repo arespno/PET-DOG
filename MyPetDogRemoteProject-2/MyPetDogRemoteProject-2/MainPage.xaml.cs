@@ -1,4 +1,5 @@
-﻿using Microsoft.Maker.RemoteWiring;
+﻿using Microsoft.Maker.Firmata;
+using Microsoft.Maker.RemoteWiring;
 using Microsoft.Maker.Serial;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,8 @@ namespace MyPetDogRemoteProject_2
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        NetworkSerial connection;
+        IStream connection;
+        UwpFirmata firmata;
         RemoteDevice arduino;
 
         public MainPage()
@@ -39,7 +41,10 @@ namespace MyPetDogRemoteProject_2
             // enable the buttons on the UI thread!
             var action = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, new Windows.UI.Core.DispatchedHandler(() =>
             {
+                freeResources();
+
                 ConnectButton.IsEnabled = true;
+                SendMessage.Text = message;
             }));
         }
 
@@ -52,6 +57,7 @@ namespace MyPetDogRemoteProject_2
                 // change button content to "disconnect"
                 ConnectButton.IsEnabled = true;
                 ConnectButton.Content = "Disconnect";
+                ReceiveMessage.Items.Clear();
             }));
         }
 
@@ -60,11 +66,22 @@ namespace MyPetDogRemoteProject_2
             // disable the buttons on the UI thread!
             var action = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, new Windows.UI.Core.DispatchedHandler(() =>
             {
+                freeResources();
+
                 changeButtonStatus(false);
                 // restore button content to "connect"
                 ConnectButton.IsEnabled = true;
                 ConnectButton.Content = "Connect";
+                SendMessage.Text = message;
             }));
+        }
+
+        private void freeResources()
+        {
+            arduino.Dispose();
+            firmata.finish();
+            firmata.Dispose();
+            connection.end();
         }
 
         private void ConnectButton_Click(object sender, RoutedEventArgs e)
@@ -72,146 +89,147 @@ namespace MyPetDogRemoteProject_2
             if (ConnectButton.Content.Equals("Connect"))
             {
                 connection = new NetworkSerial(new Windows.Networking.HostName(RemoteIP.Text), 3030);
-                arduino = new RemoteDevice(connection);
+                firmata = new UwpFirmata();
+                arduino = new RemoteDevice(firmata);
+                firmata.begin(connection);
                 connection.ConnectionEstablished += OnConnectionEstablished;
                 connection.ConnectionFailed += OnConnectionFailed;
                 connection.ConnectionLost += OnConnectionLost;
-
-                arduino.StringMessageReceived += Arduino_StringMessageReceived;
-
                 connection.begin(115200, SerialConfig.SERIAL_8N1);
+                firmata.StringMessageReceived += OnStringMessageReceived;
                 ConnectButton.IsEnabled = false;
             }
             else
             {
-                connection.end();
+                freeResources();
 
-
-                changeButtonStatus(false);
-                // restore button content to "connect"
-                ConnectButton.Content = "Connect";
+                var action = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, new Windows.UI.Core.DispatchedHandler(() =>
+                {
+                    changeButtonStatus(false);
+                    // restore button content to "connect"
+                    ConnectButton.Content = "Connect";
+                }));
             }
+        }
+
+        private void OnStringMessageReceived(UwpFirmata caller, StringCallbackEventArgs argv)
+        {
+            // change the textbox value on the UI thread!
+            var action = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, new Windows.UI.Core.DispatchedHandler(() =>
+            {
+                ReceiveMessage.Items.Add(argv.getString());
+                ReceiveMessage.ScrollIntoView(ReceiveMessage.Items.Last());
+                ReceiveMessage.UpdateLayout();
+            }));
         }
 
         private void changeButtonStatus(Boolean enabled)
         {
-            LeftHandButton.IsEnabled = enabled;
-            ForwardButton.IsEnabled = enabled;
-            RightHandButton.IsEnabled = enabled;
-            LeftButton.IsEnabled = enabled;
-            StopButton.IsEnabled = enabled;
-            RightButton.IsEnabled = enabled;
-            SitDownButton.IsEnabled = enabled;
-            BackButton.IsEnabled = enabled;
-            GoProneButton.IsEnabled = enabled;
-            HeadUpButton.IsEnabled = enabled;
-            HeadLeftButton.IsEnabled = enabled;
-            HeadButton.IsEnabled = enabled;
-            HeadRightButton.IsEnabled = enabled;
-            HeadDownButton.IsEnabled = enabled;
-        }
-
-        private void Arduino_StringMessageReceived(string message)
-        {
-            ConnectButton.Content = message;
-        }
-
-        private void sendTwo7Bytes(string str)
-        {
-            byte[] message = new byte[str.Length * 2];
-            for (int i = 0; i < str.Length; i ++)
+            var action = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, new Windows.UI.Core.DispatchedHandler(() =>
             {
-                message[i * 2] = (byte)(str[i] & 0xff);
-                message[i * 2 + 1] = 0x00;
-            }
-            connection.write(0xf0);
-            connection.write(0x71);
-            connection.write(message);
-            connection.write(0xf7);
+                LeftHandButton.IsEnabled = enabled;
+                ForwardButton.IsEnabled = enabled;
+                RightHandButton.IsEnabled = enabled;
+                LeftButton.IsEnabled = enabled;
+                StopButton.IsEnabled = enabled;
+                RightButton.IsEnabled = enabled;
+                SitDownButton.IsEnabled = enabled;
+                BackButton.IsEnabled = enabled;
+                GoProneButton.IsEnabled = enabled;
+                HeadUpButton.IsEnabled = enabled;
+                HeadLeftButton.IsEnabled = enabled;
+                HeadButton.IsEnabled = enabled;
+                HeadRightButton.IsEnabled = enabled;
+                HeadDownButton.IsEnabled = enabled;
+                HeadShakeButton.IsEnabled = enabled;
+                HeadNodButton.IsEnabled = enabled;
+                SendButton.IsEnabled = enabled;
+            }));
         }
 
         private void LeftHand_Click(object sender, RoutedEventArgs e)
         {
-            string str = "#hand-left%";
-            sendTwo7Bytes(str);
+            firmata.sendString("#hand-left%");
         }
 
         private void Forward_Click(object sender, RoutedEventArgs e)
         {
-            string str = "#forward%";
-            sendTwo7Bytes(str);
+            firmata.sendString("#forward%");
         }
 
         private void RightHand_Click(object sender, RoutedEventArgs e)
         {
-            string str = "#hand-right%";
-            sendTwo7Bytes(str);
+            firmata.sendString("#hand-right%");
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
-            string str = "#stop%";
-            sendTwo7Bytes(str);
+            firmata.sendString("#stop%");
         }
 
         private void Left_Click(object sender, RoutedEventArgs e)
         {
-            string str = "#left%";
-            sendTwo7Bytes(str);
+            firmata.sendString("#left%");
         }
 
         private void Right_Click(object sender, RoutedEventArgs e)
         {
-            string str = "#right%";
-            sendTwo7Bytes(str);
+            firmata.sendString("#right%");
         }
 
         private void SitDown_Click(object sender, RoutedEventArgs e)
         {
-            string str = "#sit-down%";
-            sendTwo7Bytes(str);
+            firmata.sendString("#sit-down%");
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            string str = "#back%";
-            sendTwo7Bytes(str);
+            firmata.sendString("#back%");
         }
 
         private void GoProne_Click(object sender, RoutedEventArgs e)
         {
-            string str = "#go-prone%";
-            sendTwo7Bytes(str);
+            firmata.sendString("#go-prone%");
         }
 
         private void HeadUpButton_Click(object sender, RoutedEventArgs e)
         {
-            string str = "#head-up%";
-            sendTwo7Bytes(str);
+            firmata.sendString("#head-up%");
         }
 
         private void HeadLeftButton_Click(object sender, RoutedEventArgs e)
         {
-            string str = "#head-left%";
-            sendTwo7Bytes(str);
+            firmata.sendString("#head-left%");
         }
 
         private void HeadButton_Click(object sender, RoutedEventArgs e)
         {
-            string str = "#head-forward%";
-            sendTwo7Bytes(str);
+            firmata.sendString("#head-forward%");
         }
 
         private void HeadRightButton_Click(object sender, RoutedEventArgs e)
         {
-            string str = "#head-right%";
-            sendTwo7Bytes(str);
+            firmata.sendString("#head-right%");
         }
 
         private void HeadDownButton_Click(object sender, RoutedEventArgs e)
         {
-            string str = "#head-down%";
-            sendTwo7Bytes(str);
+            firmata.sendString("#head-down%");
+        }
+
+        private void HeadShakeButton_Click(object sender, RoutedEventArgs e)
+        {
+            firmata.sendString("#head-shake%");
+        }
+
+        private void HeadNodButton_Click(object sender, RoutedEventArgs e)
+        {
+            firmata.sendString("#head-nod%");
+        }
+
+        private void SendButton_Click(object sender, RoutedEventArgs e)
+        {
+            firmata.sendString(SendMessage.Text);
         }
     }
 }

@@ -14,27 +14,38 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBox Name="RemoteIP" Grid.Row="0" IsEnabled="True" HorizontalAlignment="Stretch"></TextBox>
-        <Button Name="ConnectButton" Click="ConnectButton_Click" Grid.Row="1" IsEnabled="True" HorizontalAlignment="Stretch">Connect</Button>
-        <Button Name="LeftHandButton" Click="LeftHand_Click" Grid.Row="2" IsEnabled="False" HorizontalAlignment="Left">LeftHand</Button>
-        <Button Name="ForwardButton" Click="Forward_Click" Grid.Row="2" IsEnabled="False" HorizontalAlignment="Center">Forward</Button>
-        <Button Name="RightHandButton" Click="RightHand_Click" Grid.Row="2" IsEnabled="False" HorizontalAlignment="Right">RightHand</Button>
-        <Button Name="LeftButton" Click="Left_Click" Grid.Row="3" IsEnabled="False" HorizontalAlignment="Left">Left</Button>
-        <Button Name="StopButton" Click="Stop_Click" Grid.Row="3" IsEnabled="False" HorizontalAlignment="Center">Stop</Button>
-        <Button Name="RightButton" Click="Right_Click" Grid.Row="3" IsEnabled="False" HorizontalAlignment="Right">Right</Button>
-        <Button Name="SitDownButton" Click="SitDown_Click" Grid.Row="4" IsEnabled="False" HorizontalAlignment="Left">SitDown</Button>
-        <Button Name="BackButton" Click="Back_Click" Grid.Row="4" IsEnabled="False" HorizontalAlignment="Center">Back</Button>
-        <Button Name="GoProneButton" Click="GoProne_Click" Grid.Row="4" IsEnabled="False" HorizontalAlignment="Right">GoProne</Button>
-        <SplitView Name="BlankView" Grid.Row="5" HorizontalAlignment="Stretch"></SplitView>
-        <Button Name="HeadUpButton" Click="HeadUpButton_Click" Grid.Row="6" IsEnabled="False" HorizontalAlignment="Center">Up</Button>
-        <Button Name="HeadLeftButton" Click="HeadLeftButton_Click" Grid.Row="7" IsEnabled="False" HorizontalAlignment="Left">Left</Button>
-        <Button Name="HeadButton" Click="HeadButton_Click" Grid.Row="7" IsEnabled="False" HorizontalAlignment="Center">Head</Button>
-        <Button Name="HeadRightButton" Click="HeadRightButton_Click" Grid.Row="7" IsEnabled="False" HorizontalAlignment="Right">Right</Button>
-        <Button Name="HeadDownButton" Click="HeadDownButton_Click" Grid.Row="8" IsEnabled="False" HorizontalAlignment="Center">Down</Button>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBox Name="RemoteIP" Grid.Row="0" Grid.Column="0"/>
+        <TextBox Name="SendMessage" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <Button Name="ConnectButton" Click="ConnectButton_Click" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch">Connect</Button>
+        <Button Name="SendButton" Click="SendButton_Click" Grid.Row="1"  Grid.Column="1" IsEnabled="False" Grid.ColumnSpan="2" HorizontalAlignment="Stretch">Send</Button>
+        <Button Name="LeftHandButton" Click="LeftHand_Click" Grid.Row="2"  Grid.Column="0" IsEnabled="False" HorizontalAlignment="Stretch">LeftHand</Button>
+        <Button Name="ForwardButton" Click="Forward_Click" Grid.Row="2"  Grid.Column="1" IsEnabled="False" HorizontalAlignment="Stretch">Forward</Button>
+        <Button Name="RightHandButton" Click="RightHand_Click" Grid.Row="2"  Grid.Column="2" IsEnabled="False" HorizontalAlignment="Stretch">RightHand</Button>
+        <Button Name="LeftButton" Click="Left_Click" Grid.Row="3"  Grid.Column="0" IsEnabled="False" HorizontalAlignment="Stretch">Left</Button>
+        <Button Name="StopButton" Click="Stop_Click" Grid.Row="3"  Grid.Column="1" IsEnabled="False" HorizontalAlignment="Stretch">Stop</Button>
+        <Button Name="RightButton" Click="Right_Click" Grid.Row="3"  Grid.Column="2" IsEnabled="False" HorizontalAlignment="Stretch">Right</Button>
+        <Button Name="SitDownButton" Click="SitDown_Click" Grid.Row="4"  Grid.Column="0" IsEnabled="False" HorizontalAlignment="Stretch">SitDown</Button>
+        <Button Name="BackButton" Click="Back_Click" Grid.Row="4"  Grid.Column="1" IsEnabled="False" HorizontalAlignment="Stretch">Back</Button>
+        <Button Name="GoProneButton" Click="GoProne_Click" Grid.Row="4"  Grid.Column="2" IsEnabled="False" HorizontalAlignment="Stretch">GoProne</Button>
+        <SplitView Name="BlankView" Grid.Row="5"/>
+        <Button Name="HeadShakeButton" Click="HeadShakeButton_Click" Grid.Row="6"  Grid.Column="0" IsEnabled="False" HorizontalAlignment="Stretch">Shake</Button>
+        <Button Name="HeadUpButton" Click="HeadUpButton_Click" Grid.Row="6"  Grid.Column="1" IsEnabled="False" HorizontalAlignment="Stretch">Up</Button>
+        <Button Name="HeadNodButton" Click="HeadNodButton_Click" Grid.Row="6"  Grid.Column="2" IsEnabled="False" HorizontalAlignment="Stretch">Nod</Button>
+        <Button Name="HeadLeftButton" Click="HeadLeftButton_Click" Grid.Row="7"  Grid.Column="0" IsEnabled="False" HorizontalAlignment="Stretch">Left</Button>
+        <Button Name="HeadButton" Click="HeadButton_Click" Grid.Row="7"  Grid.Column="1" IsEnabled="False" HorizontalAlignment="Stretch">Head</Button>
+        <Button Name="HeadRightButton" Click="HeadRightButton_Click" Grid.Row="7"  Grid.Column="2" IsEnabled="False" HorizontalAlignment="Stretch">Right</Button>
+        <Button Name="HeadDownButton" Click="HeadDownButton_Click" Grid.Row="8"  Grid.Column="1" IsEnabled="False" HorizontalAlignment="Stretch">Down</Button>
+        <ListBox Name="ReceiveMessage" Grid.Row="9"  Grid.Column="0" Grid.ColumnSpan="3" />
     </Grid>
 </Page>
